@@ -8,6 +8,12 @@ driver.get "http://kabu-data.info/all_code/all_code_code.htm"
 
 element = driver.find_elements(:xpath, '/html/body/center/div/table/tbody/tr[*]/td[1]')
 
-require 'debug'
+File.open("code.txt","w") do |file|
+end
 
-p'aaa'
+code = []
+element.each do |row|
+  File.open("code.txt","a") do |file|
+    file << row.text + "\n"
+  end
+end
