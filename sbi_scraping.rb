@@ -1,6 +1,12 @@
 Encoding.default_external = Encoding::UTF_8 # windows対応
 
 require 'selenium-webdriver'
+require 'sinatra'
+require 'sinatra/reloader'
+
+get '/' do
+  erb :index # :indexの部分はviewsの下に作ったファイル名に合わせる
+end
 
 driver = Selenium::WebDriver.for :chrome
 
