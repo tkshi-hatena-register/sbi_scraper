@@ -7,9 +7,10 @@ require 'mongo'
 # connection = Mongo::Connection.new('localhost');
 # connection = Mongo::Client.new([ '127.0.0.1:27017' ])
 
-db = Mongo::Client.new([ '127.0.0.1:127001'], :database => 'test')
-
+db = Mongo::Client.new([ '127.0.0.1:27017'], :database => 'test')
+collection = db[:users]
 # puts coll.find({"name": "katsuya"})
-puts db.collections
+# puts db.collections
 
-# db['users'].find.each{ |info| puts info.inspect }
+collection.insert_one({name: 'oura'})
+collection.find.each{ |info| puts info.inspect }
