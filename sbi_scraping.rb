@@ -3,10 +3,8 @@ Encoding.default_external = Encoding::UTF_8 # windows対応
 require 'selenium-webdriver'
 require 'sinatra'
 require 'sinatra/reloader'
-
-get '/' do
-  erb :index # :indexの部分はviewsの下に作ったファイル名に合わせる
-end
+require 'mongo'
+require 'csv'
 
 driver = Selenium::WebDriver.for :chrome
 
@@ -30,13 +28,12 @@ end
 
 i = 0
 window = []
+per = []
 codes.each do |row|
   driver.switch_to.window( driver.window_handles.last )
 
   begin
     driver.get ("https://site2.sbisec.co.jp/ETGate/?_ControlID=WPLETsiR001Control&_DataStoreID=DSWPLETsiR001Control&_PageID=WPLETsiR001Idtl10&_ActionID=stockDetail&getFlg=on&OutSide=on&stock_sec_code_mul=#{row}")
-
-    p "https://site2.sbisec.co.jp/ETGate/?_ControlID=WPLETsiR001Control&_DataStoreID=DSWPLETsiR001Control&_PageID=WPLETsiR001Idtl10&_ActionID=stockDetail&getFlg=on&OutSide=on&stock_sec_code_mul=#{row}"
 
     if driver.page_source.include?("対象銘柄はありません")
       next
@@ -69,14 +66,15 @@ codes.each do |row|
     retry
   end
 
-  p brand_name
-  p code
-  p time
-  p current_price
-  p over
-  p under
+  # p brand_name
+  # p code
+  # p time
+  # p current_price
+  # p over
+  # p under
 
   # タブを開く数
+
   if i >= 99
     break
   end
@@ -115,6 +113,10 @@ loop do
       retry
     end
 
+    db =  Mongo::Client.new('mongodb://test:test0812@ds149613.mlab.com:49613/sbi_scraper')
+    collection = db[:securities]
+
+    collection.insert_one({brand_name: brand_name, code: code, time: time, current_price: current_price, over: over, under: under})
     # p brand_name
     # p code
     # p time

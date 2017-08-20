@@ -1,16 +1,12 @@
-# -*- coding: utf-8 -*-
+Encoding.default_external = Encoding::UTF_8 # windows対応
 
 require 'mongo'
 
-#データベースと接続
-# connection = Mongo::Connection.new
-# connection = Mongo::Connection.new('localhost');
-# connection = Mongo::Client.new([ '127.0.0.1:27017' ])
+# puts 'データベース一覧'
+# puts connection.database_names
 
 db = Mongo::Client.new([ '127.0.0.1:27017'], :database => 'test')
 collection = db[:users]
-# puts coll.find({"name": "katsuya"})
-# puts db.collections
 
-collection.insert_one({name: 'oura'})
+collection.insert_one({name: 'katsuya'})
 collection.find.each{ |info| puts info.inspect }
