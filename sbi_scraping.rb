@@ -57,15 +57,25 @@ codes.each do |row|
 
     # 売気配株数
     over = driver.find_element(:id, 'MTB0_11').text.delete(",")
+    if over == "--"
+      over = 0
+    end
 
     # 買気配株数
     under = driver.find_element(:xpath, '//*[@id="MTB0_76"]').text.delete(",")
+    if under == "--"
+      under == 0
+    end
 
     driver.find_element(:id, 'imgRefArea_MTB0_on').click
   rescue
     retry
   end
 
+  db =  Mongo::Client.new('mongodb://test:test0812@ds149613.mlab.com:49613/sbi_scraper')
+  collection = db[:securities]
+
+  collection.insert_one({brand_name: brand_name, code: code, time: time, current_price: current_price, over: over, under: under})
   # p brand_name
   # p code
   # p time
@@ -74,7 +84,6 @@ codes.each do |row|
   # p under
 
   # タブを開く数
-
   if i >= 99
     break
   end
@@ -104,10 +113,16 @@ loop do
 
       # 売気配株数
       over = driver.find_element(:id, 'MTB0_11').text.delete(",")
+      if over == "--"
+        over = 0
+      end
 
       # 買気配株数
       under = driver.find_element(:xpath, '//*[@id="MTB0_76"]').text.delete(",")
-
+      if under == "--"
+        under == 0
+      end
+      
       driver.find_element(:id, 'imgRefArea_MTB0_on').click
     rescue
       retry

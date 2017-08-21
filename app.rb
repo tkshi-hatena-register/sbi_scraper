@@ -8,9 +8,8 @@ get '/' do
   db =  Mongo::Client.new('mongodb://test:test0812@ds149613.mlab.com:49613/sbi_scraper')
   collection = db[:securities]
 
-  @user_name = collection.find.limit(1).first[:brand_name]
+  @first_brand = collection.find({}, sort: {_id:-1}, limit: 1).to_a
 
-  @hello = "こんにちわ"
   erb :index
 
 end
