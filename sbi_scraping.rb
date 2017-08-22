@@ -4,7 +4,6 @@ require 'selenium-webdriver'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'mongo'
-require 'csv'
 
 driver = Selenium::WebDriver.for :chrome
 
@@ -122,7 +121,7 @@ loop do
       if under == "--"
         under == 0
       end
-      
+
       driver.find_element(:id, 'imgRefArea_MTB0_on').click
     rescue
       retry
