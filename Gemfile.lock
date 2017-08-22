@@ -4,10 +4,10 @@ GEM
     backports (3.8.0)
     bson (4.2.2)
     bson_ext (1.5.1)
-    childprocess (0.5.6)
+    childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
-    ffi (1.9.8)
-    ffi (1.9.8-x86-mingw32)
+    ffi (1.9.18)
+    ffi (1.9.18-x86-mingw32)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
     multi_json (1.12.1)
@@ -15,8 +15,8 @@ GEM
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
-    rubyzip (1.1.7)
-    selenium-webdriver (3.4.4)
+    rubyzip (1.2.1)
+    selenium-webdriver (3.5.1)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
     sinatra (2.0.0)
@@ -45,4 +45,4 @@ DEPENDENCIES
   sinatra-contrib
 
 BUNDLED WITH
-   1.14.4
+   1.15.4
