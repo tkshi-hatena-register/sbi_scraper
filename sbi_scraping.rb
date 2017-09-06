@@ -4,7 +4,6 @@ require 'selenium-webdriver'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'mongo'
-require 'thread'
 
 driver = Selenium::WebDriver.for :chrome
 
@@ -103,9 +102,9 @@ codes.each do |row|
   driver.execute_script( "window.open()" )
 end
 
-loop do
-  window.each do |w|
-    begin
+begin
+  loop do
+    window.each do |w|
       driver.switch_to.window(w)
 
       # 銘柄名
@@ -152,11 +151,10 @@ loop do
     rescue
       retry
     end
-
     db =  Mongo::Client.new('mongodb://test:test0812@ds149613.mlab.com:49613/sbi_scraper')
     collection = db[:securities]
 
-    collection.insert_one({brand_name: brand_name, code: code, time: time, current_price: current_price, over: over, under: under, under_divided_over:over.to_i/under.to_i.round(0) })
+    collection.insert_one({brand_name: brand_name, code: code, time: time, current_price: current_price, over: over, under: under, under_divided_over: over.to_i/under.to_i.round(0) })
     # p brand_name
     # p code
     # p time
