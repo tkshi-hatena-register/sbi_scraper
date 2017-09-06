@@ -144,22 +144,24 @@ begin
       under = driver.execute_script("var heading = document.evaluate(\"//*[@id='MTB0_76']\", document, null, XPathResult.ANY_TYPE, null);    var thisheading = heading.iterateNext();
       return thisheading.textContent.trim();")
       under = under.delete(",")
+
       if under == "--"
-        under == 0
+        under = 0
       end
 
-    rescue
-      retry
-    end
+
     db =  Mongo::Client.new('mongodb://test:test0812@ds149613.mlab.com:49613/sbi_scraper')
     collection = db[:securities]
 
-    collection.insert_one({brand_name: brand_name, code: code, time: time, current_price: current_price, over: over, under: under, under_divided_over: over.to_i/under.to_i.round(0) })
+    collection.insert_one({brand_name: brand_name, code: code, time: time, current_price: current_price, over: over, under: under, under_divided_over: (over.to_i/under.to_i).round(1) })
     # p brand_name
     # p code
     # p time
     # p current_price
     # p over
     # p under
+    end
   end
+rescue
+  retry
 end

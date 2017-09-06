@@ -8,7 +8,7 @@ get '/' do
   db =  Mongo::Client.new('mongodb://test:test0812@ds149613.mlab.com:49613/sbi_scraper')
   collection = db[:securities]
 
-  @first_brand = collection.find({}, sort: {_id:-1}, limit: 1).to_a
+  @first_brand = collection.find({}).sort({under_divided_over:-1}).limit(100).to_a
 
   erb :index
 

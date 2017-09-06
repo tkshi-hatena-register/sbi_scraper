@@ -8,5 +8,5 @@ require 'mongo'
 db = Mongo::Client.new([ '127.0.0.1:27017'], :database => 'test')
 collection = db[:users]
 
-collection.insert_one({name: 'katsuya'})
+# collection.insert_one({name: 'katsuya'})
 collection.find.each{ |info| puts info.inspect }

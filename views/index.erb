@@ -15,17 +15,28 @@
       <td>銘柄名&nbsp;</td>
       <td>証券コード&nbsp;</td>
       <td width="59">株価</td>
+      <td width="70">買い気配&nbsp;</td>
+      <td width="70">売り気配&nbsp;</td>
       <td width="65">時刻&nbsp;</td>
       <td width="188">買い注文数÷売り注文数&nbsp;</td>
     </tr>
+    <% num = 1 %>
+    <% @first_brand.each do |row| %>
+    <% if row["under"] == 0 %>
+        <% next %>
+      <% end %>
     <tr>
-      <td align="left" width="24">1</td>
-      <td width="162"><%= @first_brand[0]["brand_name"] %></td>
-      <td><%= @first_brand[0]["code"] %>&nbsp;</td>
-      <td width="59"><%= @first_brand[0]["current_price"] %>&nbsp;</td>
-      <td width="65"><%= @first_brand[0]["time"] %></td>
-      <td align="left" width="188"><%= (@first_brand[0]["over"].to_i / @first_brand[0]["under"].to_i).round(1) %>倍</td>
+      <td align="left" width="24"><%= num %></td>
+      <td width="300"><%= row["brand_name"] %></td>
+      <td><%= row["code"] %>&nbsp;</td>
+      <td width="59"><%= row["current_price"] %>&nbsp;</td>
+      <td width="65"><%= row["over"] %></td>
+      <td width="65"><%= row["under"] %></td>
+      <td width="65"><%= row["time"] %></td>
+      <td align="left" width="188"><%= row["under_divided_over"].round(1) %>倍</td>
     </tr>
+    <% num += 1 %>
+    <% end %>
   </tbody>
 </table>
 <br>
@@ -33,7 +44,7 @@
 </body>
 <script type="text/javascript" language="javascript">
 <!--
-setTimeout("location.reload()",1000);
+setTimeout("location.reload()",10000);
 // -->
 </script>
 </html>
