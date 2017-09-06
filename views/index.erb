@@ -18,15 +18,14 @@
       <td width="65">時刻&nbsp;</td>
       <td width="188">買い注文数÷売り注文数&nbsp;</td>
     </tr>
-    <% @first_brand.each do |elem| %>
     <tr>
-      <td width="162"><%= elem[0]["brand_name"] %></td>
-      <td><%= elem[0]["code"] %>&nbsp;</td>
-      <td width="59"><%= elem[0]["current_price"] %>&nbsp;</td>
-      <td width="65"><%= elem[0]["time"] %></td>
-      <td align="left" width="188"><%= (elem[0]["under_divided_over"] %>倍</td>
+      <td align="left" width="24">1</td>
+      <td width="162"><%= @first_brand[0]["brand_name"] %></td>
+      <td><%= @first_brand[0]["code"] %>&nbsp;</td>
+      <td width="59"><%= @first_brand[0]["current_price"] %>&nbsp;</td>
+      <td width="65"><%= @first_brand[0]["time"] %></td>
+      <td align="left" width="188"><%= (@first_brand[0]["over"].to_i / @first_brand[0]["under"].to_i).round(1) %>倍</td>
     </tr>
-    <% end %>
   </tbody>
 </table>
 <br>
